@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json())
+
 let users = [];
 
 // GET: Alle Benutzer abrufen
@@ -29,7 +31,7 @@ app.get('/users/:id', (req, res) => {
 
 // PUT: Einen bestimmten Benutzer aktualisieren
 app.put('/users/:id', (req, res) => {
-  const userId = req.params.id;
+  const userId = parseInt(req.params.id); 
   const { username, active } = req.body;
   const user = users.find(u => u.id === userId);
   if (user) {
@@ -43,7 +45,7 @@ app.put('/users/:id', (req, res) => {
 
 // DELETE: Einen bestimmten Benutzer löschen
 app.delete('/users/:id', (req, res) => {
-  const userId = req.params.id;
+  const userId = parseInt(req.params.id);
   const index = users.findIndex(u => u.id === userId);
   if (index !== -1) {
     const deletedUser = users.splice(index, 1);
